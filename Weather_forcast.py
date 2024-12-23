@@ -46,24 +46,11 @@ def train_and_evaluate_model(data):
     
     return model
 
-def fit_linear_regression(data):
-    X = data[['Temperature', 'Humidity']]
-    y = data['Rain']                     
-    
-    model = LinearRegression()
-    model.fit(X, y)
-    
-    a, b = model.coef_  
-    c = model.intercept_  
-    
-    print(f"Linear Regression Equation: Rain = {a:.4f} * Temperature + {b:.4f} * Humidity + {c:.4f}")
-    return model
-
 if __name__ == "__main__":
-    API_KEY = "your openwheather API Key" 
-    CITIES = ["New orleans,US", "London,GB", "Sydney,AU", "Tokyo,JP", "Seoul,KR","São Paulo,BR"]  
+    API_KEY = "ef6fdcf157ae61448bd466e8bc6e8ab0" 
+    CITIES = ["New Orleans,US", "London,GB", "Sydney,AU", "Tokyo,JP", "Seoul,KR", "São Paulo,BR"]  
     
-    all_data = pd.DataFrame() 
+    all_data = pd.DataFrame()
     
     for city in CITIES:
         raw_data = fetch_weather_data(API_KEY, city)
@@ -71,8 +58,8 @@ if __name__ == "__main__":
             processed_data = process_weather_data(raw_data, city)
             all_data = pd.concat([all_data, processed_data], ignore_index=True)  
     
-    print(all_data.head())  
-    
+    print("Each city's first 2 rows:")
+    print(all_data.groupby('City').head(2))  
+
+  
     model = train_and_evaluate_model(all_data)
-    
-    linear_model = fit_linear_regression(all_data)
