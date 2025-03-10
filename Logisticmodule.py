@@ -29,3 +29,6 @@ plt.ylabel('Accuracy')
 plt.title('Effect of k on Classification Accuracy')
 plt.grid()
 plt.show()
+
+#광학적인 비선형 효과를 이용한 암호화 기술
+
